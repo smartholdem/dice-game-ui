@@ -1,14 +1,46 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import HelloWorld from './components/HelloWorld.vue';
+import TheWelcome from './components/TheWelcome.vue';
+import { validateMnemonic } from "bip39";
+import { Identities } from "@smartholdem/crypto";
+
+
+export default {
+  components: {
+    HelloWorld,
+    TheWelcome
+  },
+  data() {
+    return {
+      gameBank: "SRcse8VH9uqC4DterMfghvtaHdLhHJ9Gi2",
+      userAddress: null,
+      secret: "",
+    }
+  },
+  methods: {
+    async addressFromPassword(secret) {
+      const isBip39 = validateMnemonic(secret);
+      const address = Identities.Address.fromPassphrase(secret, 63);
+      this.userAddress = {
+        isBip39: isBip39,
+        address: address
+      };
+      return this.userAddress;
+    }
+  }
+}
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <img alt="STH logo" class="logo" src="./assets/logo.png" width="96" height="96" />
+    <div v-if="userAddress" class="wrapper">
+      <HelloWorld :address=userAddress.address />
+    </div>
+    <div v-else class="wrapper">
+      <input @input="" v-model="secret">
+      <button @click="addressFromPassword(secret)">Import Address</button>
     </div>
   </header>
 

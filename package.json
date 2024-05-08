@@ -1,6 +1,6 @@
 {
   "name": "game-dice",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@smartholdem/client": "^2.0.0",
+    "@smartholdem/crypto": "^3.8.3",
+    "axios": "^1.6.8",
+    "bip39": "^3.1.0",
+    "buffer": "^6.0.3",
+    "rollup-plugin-polyfill-node": "^0.13.0",
     "vue": "^3.4.21"
   },
   "devDependencies": {

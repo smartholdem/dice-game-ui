@@ -1,20 +1,40 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
+<script>
+import axios from 'axios';
+
+export default {
+  props: ({
+    address: {
+      type: String,
+      required: true
+    }
+  }),
+  data() {
+    return {
+      amount: 10,
+      wallet: {
+        address: "",
+        balance: 0
+      }
+    }
+  },
+  methods: {
+
+    async sendCoins(memo) {
+
+    }
   }
-})
+}
+
+
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+    <h3 class="green">{{ address }}</h3>
+    <h3>STH 0</h3>
+    <button @click="sendCoins(127)" class="btn">ROLL 127<</button>
+    <input v-model="amount" type="text">
+    <button @click="sendCoins(128)" class="btn"> ROLL > 128</button>
   </div>
 </template>
 
