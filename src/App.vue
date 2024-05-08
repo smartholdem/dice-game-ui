@@ -12,7 +12,6 @@ export default {
   },
   data() {
     return {
-      gameBank: "SRcse8VH9uqC4DterMfghvtaHdLhHJ9Gi2",
       userAddress: null,
       secret: "",
     }
@@ -36,7 +35,7 @@ export default {
   <header>
     <img alt="STH logo" class="logo" src="./assets/logo.png" width="96" height="96" />
     <div v-if="userAddress" class="wrapper">
-      <HelloWorld :address=userAddress.address />
+      <HelloWorld :address=userAddress.address :secret="secret" />
     </div>
     <div v-else class="wrapper">
       <input @input="" v-model="secret">

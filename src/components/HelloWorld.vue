@@ -10,6 +10,7 @@ export default {
   }),
   data() {
     return {
+      gameBank: "SRcse8VH9uqC4DterMfghvtaHdLhHJ9Gi2",
       amount: 10,
       wallet: {
         address: "",
@@ -18,10 +19,19 @@ export default {
     }
   },
   methods: {
-
-    async sendCoins(memo) {
+    async getWallet(userId) {
+      try {
+        this.wallet = (await axios.get('https://node0.smartholdem.io/api/wallets/' + userId)).data.data;
+      } catch(e) {
+        console.log('err get wallet info')
+      }
+    },
+    async sendCoinsInGame(memo) {
 
     }
+  },
+  async mounted() {
+    await this.getWallet(this.address)
   }
 }
 
@@ -31,10 +41,10 @@ export default {
 <template>
   <div class="greetings">
     <h3 class="green">{{ address }}</h3>
-    <h3>STH 0</h3>
-    <button @click="sendCoins(127)" class="btn">ROLL 127<</button>
+    <h3 v-if="wallet.balance">STH {{(wallet.balance / 10 ** 8).toFixed(8)}}</h3>
+    <button @click="sendCoinsInGame(127)" class="btn">ROLL 127<</button>
     <input v-model="amount" type="text">
-    <button @click="sendCoins(128)" class="btn"> ROLL > 128</button>
+    <button @click="sendCoinsInGame(128)" class="btn"> ROLL > 128</button>
   </div>
 </template>
 
